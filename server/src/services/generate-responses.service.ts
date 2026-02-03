@@ -1,4 +1,4 @@
-import { getQueryResults } from './retrieve.service.ts';
+import { getQueryResults } from './retrieve.service.js';
 import { GoogleGenAI } from '@google/genai';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });

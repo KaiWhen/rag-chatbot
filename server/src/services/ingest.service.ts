@@ -1,9 +1,9 @@
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
 import client from '../db/mongo.js';
-import { getEmbedding } from './embed.service';
+import { getEmbedding } from './embed.service.js';
 import { Document as LCDocument } from '@langchain/core/documents';
-import { vectorIndex } from './vector-index.service';
+import { vectorIndex } from './vector-index.service.js';
 
 type VectorInsertDocument = {
   userId: string;
