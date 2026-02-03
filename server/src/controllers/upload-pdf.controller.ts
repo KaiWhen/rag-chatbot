@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express-serve-static-core';
-import { ingestData } from '../services/ingest.service';
+import { ingestData } from '../services/ingest.service.js';
 import fs from 'fs';
 
 export async function handleUploadPdfController(req: Request, res: Response) {

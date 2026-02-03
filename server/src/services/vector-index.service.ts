@@ -1,4 +1,4 @@
-import client from '../db/mongo.ts';
+import client from '../db/mongo.js';
 
 export async function vectorIndex() {
   try {

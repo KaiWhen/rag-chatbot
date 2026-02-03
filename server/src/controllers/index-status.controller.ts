@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { checkIndexStatus } from '../services/vector-index.service';
+import { checkIndexStatus } from '../services/vector-index.service.js';
 
 export async function indexStatusController(req: Request, res: Response) {
   try {

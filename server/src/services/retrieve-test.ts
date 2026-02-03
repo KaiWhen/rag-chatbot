@@ -1,4 +1,4 @@
-import { getQueryResults } from './retrieve.service.ts';
+import { getQueryResults } from './retrieve.service.js';
 async function run() {
   try {
     const query = 'AI technology';

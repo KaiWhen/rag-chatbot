@@ -2,9 +2,9 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import type { Request } from 'express-serve-static-core';
-import uploadPDFRouter from './routes/upload-pdf.route';
-import queryRouter from './routes/query.route';
-import indexStatusRouter from './routes/index-status.route';
+import uploadPDFRouter from './routes/upload-pdf.route.js';
+import queryRouter from './routes/query.route.js';
+import indexStatusRouter from './routes/index-status.route.js';
 
 const __dirname = path.resolve();
 const app = express();

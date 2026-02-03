@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express-serve-static-core';
-import { handleQuery } from '../services/query.service';
+import { handleQuery } from '../services/query.service.js';
 
 export async function handleQueryController(req: Request, res: Response) {
   try {

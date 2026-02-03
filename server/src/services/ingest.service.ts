@@ -1,6 +1,6 @@
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
-import client from '../db/mongo';
+import client from '../db/mongo.js';
 import { getEmbedding } from './embed.service';
 import { Document as LCDocument } from '@langchain/core/documents';
 import { vectorIndex } from './vector-index.service';

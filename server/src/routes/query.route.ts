@@ -1,5 +1,5 @@
 import express from 'express';
-import { handleQueryController } from '../controllers/query.controller';
+import { handleQueryController } from '../controllers/query.controller.js';
 
 const router = express.Router();
 

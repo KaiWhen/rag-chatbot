@@ -1,4 +1,4 @@
-import { generateResponse } from './generate-responses.service';
+import { generateResponse } from './generate-responses.service.js';
 
 export async function handleQuery(query: string, filename: string): Promise<string> {
   const response = await generateResponse(query, filename);
