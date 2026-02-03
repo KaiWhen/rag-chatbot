@@ -3,6 +3,6 @@ import { handleQueryController } from "../controllers/query.controller";
 
 const router = express.Router();
 
-router.post("/query", handleQueryController);
+router.post("/", handleQueryController);
 
 export default router;

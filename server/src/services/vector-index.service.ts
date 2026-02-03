@@ -15,7 +15,11 @@ export async function vectorIndex() {
                 "path": "embedding",
                 "similarity": "cosine",
                 "numDimensions": 3072
-              }
+              },
+              {
+                type: "filter",
+                path: "filename"
+              },
             ]
           }
       }

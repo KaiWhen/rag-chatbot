@@ -5,6 +5,6 @@ import { handleUploadPdfController } from "../controllers/upload-pdf.controller"
 const router = Router();
 const upload = multer({ dest: "uploads/" });
 
-router.post("/upload-pdf", upload.single("pdf"), handleUploadPdfController);
+router.post("/", upload.single("file"), handleUploadPdfController);
 
 export default router;

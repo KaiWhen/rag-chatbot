@@ -6,16 +6,18 @@ export async function handleQueryController(
     res: Response,
 ): Promise<any> {
     try {
-        const query = req.body as string;
+        const query = req.body.query as string;
+        const filename = req.body.filename as string;
 
-        if (!query || typeof query !== "string") {
+        if (!query || typeof query !== "string" ||
+        !filename || typeof filename !== "string") {
             return res.status(400).json({
                 error: "Query must be a non-empty string"
             });
         }
 
-        const response = await handleQuery(query);
-        return res.status(200).json({ response });
+        const response = await handleQuery(query, filename);
+        return res.status(200).json({ answer: response });
 
     } catch (err) {
         if (err instanceof Error) {

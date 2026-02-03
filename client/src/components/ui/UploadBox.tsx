@@ -3,21 +3,34 @@ import { Show } from "@preact/signals-react/utils";
 import { useSignals } from "@preact/signals-react/runtime";
 import { useRef } from 'react';
 import { Upload, FileText, X } from 'lucide-react';
+import { uploadPDFRequest } from '../../api/uploadPDF';
 
 // signals
 export const pdfFile = signal<File | null>(null);
 export const fileUploaded = signal(false);
+export const isUploading = signal<boolean>(false);
+export const uploadError = signal<string | null>(null);
 
 export default function UploadBox() {
     useSignals();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file && file.type === 'application/pdf') {
-            pdfFile.value = file;
-            fileUploaded.value = true;
+            isUploading.value = true;
+            uploadError.value = null;
+          
+            const result = await uploadPDFRequest({ file, filename: file.name });
+
+            if (result.code === 'success') {
+              pdfFile.value = file;
+              fileUploaded.value = true;
+            }
+            else uploadError.value = 'Failed to upload PDF. Please try again.';
+            isUploading.value = false;
+
             // setMessages([{
             // type: 'system',
             // content: `PDF "${file.name}" uploaded successfully. Ask me anything about this document.`

@@ -3,8 +3,9 @@ import { signal } from '@preact/signals-react';
 import { Show } from "@preact/signals-react/utils";
 import { useSignals } from "@preact/signals-react/runtime";
 import { Send } from 'lucide-react';
-import { pdfFile, fileUploaded } from '../components/ui/UploadBox';
+import { pdfFile, fileUploaded, uploadError } from '../components/ui/UploadBox';
 import UploadBox from '../components/ui/UploadBox';
+import { sendQuery } from '../api/sendQuery';
 
 // Types
 interface Message {
@@ -14,6 +15,7 @@ interface Message {
 
 // Signals
 const isProcessing = signal<boolean>(false);
+const queryError = signal<string | null>(null);
 
 export default function Home() {
   useSignals();
@@ -35,20 +37,16 @@ export default function Home() {
     setInput('');
     setMessages(messages => [...messages, { type: 'user', content: userMessage }]);
     isProcessing.value = true;
+    queryError.value = null;
 
-    // placeholder
-    setTimeout(() => {
-      setMessages(messages => [...messages, {
-        type: 'assistant',
-        content: `Here's the obligatory lorem ipsum placeholder:
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ab dolorem quisquam, cum aut voluptatum, praesentium corrupti maxime
-          velit accusantium cumque voluptatibus, illum numquam? Voluptatum
-          perspiciatis sit fugiat dolorem laborum at!
-        `
-      }]);
-      isProcessing.value = false;
-    }, 1000);
+    const result = await sendQuery({ query: userMessage, filename: pdfFile.value.name });
+
+    if (result.code === 'success' && result.data) {
+      setMessages(messages => [...messages, { type: 'assistant', content: result.data.answer }]);
+    }
+    else uploadError.value = 'Failed to get response. Please try again.';
+    isProcessing.value = false;
+    
   };
 
   return (

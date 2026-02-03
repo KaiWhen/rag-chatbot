@@ -3,9 +3,9 @@ import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({apiKey: process.env.GOOGLE_API_KEY});
 
-export async function generateResponse(question: string) {
+export async function generateResponse(question: string, filename: string) {
     try {
-        const documents = await getQueryResults(question);
+        const documents = await getQueryResults(question, filename);
 
         let textDocuments = "";
         if (!documents || documents.length === 0) {

@@ -1,7 +1,7 @@
 import client from "../db/mongo.ts";
 import { getEmbedding } from './embed.service.ts';
 
-export async function getQueryResults(query: string) {    
+export async function getQueryResults(query: string, filename: string) {    
     try {
         const queryEmbedding = await getEmbedding(query);
 
@@ -15,6 +15,9 @@ export async function getQueryResults(query: string) {
                     index: "vector_index",
                     queryVector: queryEmbedding,
                     path: "embedding",
+                    filter: {
+                        filename: filename,
+                    },
                     exact: true,
                     limit: 5
                 }

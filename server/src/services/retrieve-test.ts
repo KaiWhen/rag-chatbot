@@ -2,7 +2,7 @@ import { getQueryResults } from "./retrieve.service.ts";
 async function run() {
     try {
         const query = "AI technology";
-        const documents = await getQueryResults(query);
+        const documents = await getQueryResults(query, "sample.pdf");
         console.log(documents?.length + " documents retrieved.");
         documents?.forEach( doc => {
             console.log(doc);
