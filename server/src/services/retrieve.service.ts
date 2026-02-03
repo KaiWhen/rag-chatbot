@@ -1,4 +1,4 @@
-import client from '../db/mongo.ts';
+import client from '../db/mongo.js';
 import { getEmbedding } from './embed.service.js';
 
 export async function getQueryResults(query: string, filename: string) {
