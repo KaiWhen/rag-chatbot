@@ -14,13 +14,6 @@ app.use(cors<Request>());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/dist')));
-  app.get('/{*any}', (_, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-  });
-}
-
 app.use('/upload-pdf', uploadPDFRouter);
 app.use('/query', queryRouter);
 app.use('/index-status', indexStatusRouter);
