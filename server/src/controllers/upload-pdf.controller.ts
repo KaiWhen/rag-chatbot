@@ -11,16 +11,21 @@ export async function handleUploadPdfController(req: Request, res: Response) {
     }
     console.log('File', req.body.filename);
 
-    const newPath = `uploads/${req.body.filename}`;
-    fs.rename(req.file.path, newPath, (err) => {
-      if (err) {
-        console.error('Error renaming file:', err);
-      } else {
-        console.log('File renamed successfully');
-      }
-    });
+    // const newPath = `uploads/${req.body.filename}`;
+    // fs.rename(req.file.path, newPath, (err) => {
+    //   if (err) {
+    //     console.error('Error renaming file:', err);
+    //   } else {
+    //     console.log('File renamed successfully');
+    //   }
+    // });
 
-    await ingestData(newPath, req.body.filename);
+    const filename = req.body.filename || req.file.originalname;
+
+    // Buffer instead of path
+    const pdfBuffer = req.file.buffer;
+
+    await ingestData(pdfBuffer, filename);
 
     return res.status(200).json({ success: true });
   } catch (err) {

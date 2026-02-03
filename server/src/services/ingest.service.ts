@@ -4,6 +4,8 @@ import client from '../db/mongo.js';
 import { getEmbedding } from './embed.service.js';
 import { Document as LCDocument } from '@langchain/core/documents';
 import { vectorIndex } from './vector-index.service.js';
+import path from 'path';
+import fs from 'fs';
 
 type VectorInsertDocument = {
   userId: string;
@@ -13,9 +15,12 @@ type VectorInsertDocument = {
   embedding: number[];
 };
 
-export async function ingestData(filePath: string, filename: string) {
+export async function ingestData(buffer: Buffer, filename: string) {
+  const tmpPath = path.join('/tmp', filename);
   try {
-    const loader = new PDFLoader(filePath);
+    fs.writeFileSync(tmpPath, buffer);
+
+    const loader = new PDFLoader(tmpPath);
     const data = await loader.load();
 
     // Chunk the text from the PDF
@@ -69,6 +74,9 @@ export async function ingestData(filePath: string, filename: string) {
       console.log('An unknown error occurred.');
     }
   } finally {
+    if (fs.existsSync(tmpPath)) {
+      fs.unlinkSync(tmpPath);
+    }
     await client.close();
   }
 }
