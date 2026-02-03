@@ -1,27 +1,29 @@
-import express from "express";
-import path from "path";
-import cors from "cors";
-import type { Request } from "express-serve-static-core";
-import uploadPDFRouter from "./routes/upload-pdf.route";
-import queryRouter from "./routes/query.route";
+import express from 'express';
+import path from 'path';
+import cors from 'cors';
+import type { Request } from 'express-serve-static-core';
+import uploadPDFRouter from './routes/upload-pdf.route';
+import queryRouter from './routes/query.route';
+import indexStatusRouter from './routes/index-status.route';
 
 const __dirname = path.resolve();
 const app = express();
-const port = process.env.PORT ?? "8080";
+const port = process.env.PORT ?? '8080';
 
 app.use(cors<Request>());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/client/dist")));
-  app.get("/{*any}", (_, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/client/dist')));
+  app.get('/{*any}', (_, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
   });
 }
 
 app.use('/upload-pdf', uploadPDFRouter);
 app.use('/query', queryRouter);
+app.use('/index-status', indexStatusRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

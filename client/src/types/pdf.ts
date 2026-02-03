@@ -1,9 +1,9 @@
 export interface UploadPDFParams {
-    filename: string;
-    file: File;
+  filename: string;
+  file: File;
 }
 
 export interface UploadPDFResponse {
-    success: boolean;
-    error?: string;
+  success: boolean;
+  error?: string;
 }

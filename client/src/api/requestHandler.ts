@@ -1,14 +1,14 @@
-import type { AxiosError, AxiosResponse } from "axios";
+import type { AxiosError, AxiosResponse } from 'axios';
 
 type BaseRequest<T, V> = (params?: T) => Promise<AxiosResponse<V>>;
 
 type SuccessResponse<V> = {
-  code: "success";
+  code: 'success';
   data: V;
 };
 
 type ErrorResponse<E = AxiosError> = {
-  code: "error";
+  code: 'error';
   error: E;
 };
 
@@ -19,8 +19,8 @@ export const requestHandler =
   async (params?: T): BaseResponse<V, E> => {
     try {
       const response = await request(params);
-      return { code: "success", data: response.data };
+      return { code: 'success', data: response.data };
     } catch (e) {
-      return { code: "error", error: e as E };
+      return { code: 'error', error: e as E };
     }
   };
